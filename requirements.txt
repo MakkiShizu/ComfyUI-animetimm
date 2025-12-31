@@ -1,0 +1,4 @@
+dghs-imgutils>=0.17.0
+huggingface_hub
+pandas
+timm
