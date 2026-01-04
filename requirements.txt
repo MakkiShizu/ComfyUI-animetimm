@@ -1,4 +1,4 @@
 dghs-imgutils>=0.17.0
 huggingface_hub
+timm>=1.0.16
 pandas
-timm
