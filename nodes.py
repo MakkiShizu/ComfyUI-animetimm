@@ -211,19 +211,19 @@ class AnimeTimmNode:
 
             if include_general:
                 all_tags.extend([tag for tag, score in general_tags])
-                all_scores.extend([score for tag, score in general_tags])
+                all_scores.extend([float(score) for tag, score in general_tags])
 
             if include_character:
                 all_tags.extend([tag for tag, score in character_tags])
-                all_scores.extend([score for tag, score in character_tags])
+                all_scores.extend([float(score) for tag, score in character_tags])
 
             if include_artist:
                 all_tags.extend([tag for tag, score in artist_tags])
-                all_scores.extend([score for tag, score in artist_tags])
+                all_scores.extend([float(score) for tag, score in artist_tags])
 
             if include_rating:
                 all_tags.extend([tag for tag, score in rating_tags])
-                all_scores.extend([score for tag, score in rating_tags])
+                all_scores.extend([float(score) for tag, score in rating_tags])
 
             formatted_tags = ", ".join(all_tags)
             formatted_tags_list.append(formatted_tags)
