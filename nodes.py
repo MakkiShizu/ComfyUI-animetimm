@@ -185,7 +185,8 @@ class AnimeTimmNode:
                 pbar.update(1)
                 continue
 
-            # 确保预处理器已加载
+            # Added following assertions to make pylance happy.
+            # Make sure preprocessor is loaded
             if self.preprocessor is None:
                 print("Error: preprocessor is None, skipping image")
                 formatted_tags_list.append("")
@@ -198,7 +199,7 @@ class AnimeTimmNode:
                 pbar.update(1)
                 continue
 
-            # 确保模型已加载
+            # Make sure model is loaded
             if self.model is None:
                 print("Error: model is None, skipping image")
                 formatted_tags_list.append("")
@@ -211,7 +212,7 @@ class AnimeTimmNode:
                 pbar.update(1)
                 continue
 
-            # 确保tags_df已加载
+            # Make fure tags_df is loaded.
             if self.tags_df is None:
                 print("Error: tags_df is None, skipping image")
                 formatted_tags_list.append("")
