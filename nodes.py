@@ -65,6 +65,10 @@ class AnimeTimmNode:
                         "tooltip": "Model to use for tag prediction",
                     },
                 ),
+                "replace_underscore": (
+                    "BOOLEAN",
+                    {"default": True, "tooltip": "Replace the underscore (_) in tags."},
+                ),
                 "include_general": (
                     "BOOLEAN",
                     {
@@ -91,6 +95,13 @@ class AnimeTimmNode:
                     {
                         "default": True,
                         "tooltip": "Include rating tags in output",
+                    },
+                ),
+                "use_custom_threshold": (
+                    "BOOLEAN",
+                    {
+                        "default": False,
+                        "tooltip": "Use the custom threshold instead of best threshold from selected_tags.csv",
                     },
                 ),
             },
@@ -133,10 +144,12 @@ class AnimeTimmNode:
         image,
         threshold,
         model_repo,
+        replace_underscore,
         include_general,
         include_character,
         include_artist,
         include_rating,
+        use_custom_threshold,
     ):
         batch_results = []
         formatted_tags_list = []
@@ -172,7 +185,49 @@ class AnimeTimmNode:
                 pbar.update(1)
                 continue
 
-            input_tensor = self.preprocessor(img).unsqueeze(0)
+            # 确保预处理器已加载
+            if self.preprocessor is None:
+                print("Error: preprocessor is None, skipping image")
+                formatted_tags_list.append("")
+                all_scores_list.append([])
+                raw_output_list.append("")
+                general_str_list.append("")
+                character_str_list.append("")
+                artist_str_list.append("")
+                rating_str_list.append("")
+                pbar.update(1)
+                continue
+
+            # 确保模型已加载
+            if self.model is None:
+                print("Error: model is None, skipping image")
+                formatted_tags_list.append("")
+                all_scores_list.append([])
+                raw_output_list.append("")
+                general_str_list.append("")
+                character_str_list.append("")
+                artist_str_list.append("")
+                rating_str_list.append("")
+                pbar.update(1)
+                continue
+
+            # 确保tags_df已加载
+            if self.tags_df is None:
+                print("Error: tags_df is None, skipping image")
+                formatted_tags_list.append("")
+                all_scores_list.append([])
+                raw_output_list.append("")
+                general_str_list.append("")
+                character_str_list.append("")
+                artist_str_list.append("")
+                rating_str_list.append("")
+                pbar.update(1)
+                continue
+
+            input_tensor = self.preprocessor(img)
+            if not isinstance(input_tensor, torch.Tensor):
+                input_tensor = torch.tensor(np.array(input_tensor))
+            input_tensor = input_tensor.unsqueeze(0)
 
             with torch.no_grad():
                 output = self.model(input_tensor)
@@ -186,11 +241,17 @@ class AnimeTimmNode:
             for idx, (tag_row, score) in enumerate(
                 zip(self.tags_df.itertuples(), prediction)
             ):
-                tag_name = tag_row.name
+                tag_name = str(tag_row.name)
+
+                if replace_underscore:
+                    tag_name = tag_name.replace("_", " ")
+
                 category = tag_row.category
                 best_threshold = tag_row.best_threshold
 
-                effective_threshold = max(threshold, best_threshold)
+                effective_threshold = (
+                    threshold if use_custom_threshold else max(threshold, best_threshold)  # type: ignore[arg-type]
+                )
 
                 if score >= effective_threshold:
                     if category == 0:  # General
