@@ -65,10 +65,6 @@ class AnimeTimmNode:
                         "tooltip": "Model to use for tag prediction",
                     },
                 ),
-                "replace_underscore": (
-                    "BOOLEAN",
-                    {"default": True, "tooltip": "Replace the underscore (_) in tags."},
-                ),
                 "include_general": (
                     "BOOLEAN",
                     {
@@ -96,6 +92,10 @@ class AnimeTimmNode:
                         "default": True,
                         "tooltip": "Include rating tags in output",
                     },
+                ),
+                "replace_underscore": (
+                    "BOOLEAN",
+                    {"default": True, "tooltip": "Replace the underscore (_) in tags."},
                 ),
                 "use_custom_threshold": (
                     "BOOLEAN",
@@ -144,11 +144,11 @@ class AnimeTimmNode:
         image,
         threshold,
         model_repo,
-        replace_underscore,
         include_general,
         include_character,
         include_artist,
         include_rating,
+        replace_underscore,
         use_custom_threshold,
     ):
         batch_results = []

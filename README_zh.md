@@ -44,11 +44,11 @@ ComfyUI 自定义节点，使用 [animetimm](https://huggingface.co/animetimm) �
 - `image`: 输入图像
 - `threshold`: 置信度阈值（默认 0.35），置信度高于此值的标签才会被输出
 - `model_repo`: 选择模型仓库（默认 animetimm/caformer_s36.dbv4-full）
-- `replace_underscore`: 是否替换标签中的下划线为空格（默认 True）
 - `include_general`: 是否包含通用标签（默认 True）
 - `include_character`: 是否包含角色标签（默认 True）
 - `include_artist`: 是否包含艺术家标签（默认 False）
 - `include_rating`: 是否包含分级标签（默认 True）
+- `replace_underscore`: 是否替换标签中的下划线为空格（默认 True）
 - `use_custom_threshold`: 是否只使用自定义阈值（完全忽视 selected_tags.csv 中提供的 best_threshold）（默认为 False）
 
 ### 输出

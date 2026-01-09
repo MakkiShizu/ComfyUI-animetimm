@@ -44,11 +44,11 @@ The node provides the following parameters:
 - `image`: Input image
 - `threshold`: Confidence threshold (default 0.35), only tags with confidence above this value will be output
 - `model_repo`: Select model repository (default animetimm/caformer_s36.dbv4-full)
-- `replace_underscore`: Whether to replace underscores in tags with spaces (default True)
 - `include_general`: Whether to include general tags (default True)
 - `include_character`: Whether to include character tags (default True)
 - `include_artist`: Whether to include artist tags (default False)
 - `include_rating`: Whether to include rating tags (default True)
+- `replace_underscore`: Whether to replace underscores in tags with spaces (default True)
 - `use_custom_threshold`: Whether to use only the custom threshold from input (ignoring the best_threshold from selected_tags.csv) (default to False)
 
 ### Output
