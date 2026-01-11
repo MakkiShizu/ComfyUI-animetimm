@@ -48,6 +48,8 @@ The node provides the following parameters:
 - `include_character`: Whether to include character tags (default True)
 - `include_artist`: Whether to include artist tags (default False)
 - `include_rating`: Whether to include rating tags (default True)
+- `replace_underscore`: Whether to replace underscores in tags with spaces (default True)
+- `use_custom_threshold`: Whether to use only the custom threshold from input (ignoring the best_threshold from selected_tags.csv) (default to False)
 
 ### Output
 
